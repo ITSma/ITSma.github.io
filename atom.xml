@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ITS&#39;Ma Blog</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2018-08-01T06:35:42.618Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>ITS-Ma</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello world</title>
+    <link href="http://yoursite.com/2018/08/01/Hello-world/"/>
+    <id>http://yoursite.com/2018/08/01/Hello-world/</id>
+    <published>2018-08-01T06:34:57.000Z</published>
+    <updated>2018-08-01T06:35:42.618Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong> Hello world：</strong> <excerpt in="" index="" |="" 首页摘要=""><br>看看<br><a id="more"></a></excerpt></p><p><the rest="" of="" contents="" |="" 余下全文=""><br>真的就只是看看</the></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt; Hello world：&lt;/strong&gt; &lt;excerpt in=&quot;&quot; index=&quot;&quot; |=&quot;&quot; 首页摘要=&quot;&quot;&gt;&lt;br&gt;看看&lt;br&gt;
+    
+    </summary>
+    
+      <category term="algorithm" scheme="http://yoursite.com/categories/algorithm/"/>
+    
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+</feed>
