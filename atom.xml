@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://itsma.github.io/"/>
-  <updated>2018-08-01T09:15:00.119Z</updated>
+  <updated>2018-08-02T02:54:54.357Z</updated>
   <id>https://itsma.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Google浏览器插件</title>
+    <link href="https://itsma.github.io/%5Bobject%20Object%5D/webtools.html"/>
+    <id>https://itsma.github.io/[object Object]/webtools.html</id>
+    <published>2018-08-02T02:46:13.000Z</published>
+    <updated>2018-08-02T02:54:54.357Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong> Google浏览器插件：</strong> <excerpt in="" index="" |="" 首页摘要=""><br>适合自己的才是最好的。个人常用插件集合<br><a id="more"></a></excerpt></p><the rest="" of="" contents="" |="" 余下全文=""><h2 id="书签"><a href="#书签" class="headerlink" title="书签"></a>书签</h2><p>书签管理</p><h2 id="新标签页"><a href="#新标签页" class="headerlink" title="新标签页"></a>新标签页</h2><p>Infinity新标签页</p><h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>Surfingkeys</p><h2 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h2><p>Proxy SwitchyOmega</p><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>YAAW for Chrome</p><h2 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h2><p>有道词典Chrome划词插件</p><h2 id="购物"><a href="#购物" class="headerlink" title="购物"></a>购物</h2><p>购物党全网比价工具</p></the>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt; Google浏览器插件：&lt;/strong&gt; &lt;excerpt in=&quot;&quot; index=&quot;&quot; |=&quot;&quot; 首页摘要=&quot;&quot;&gt;&lt;br&gt;适合自己的才是最好的。个人常用插件集合&lt;br&gt;
+    
+    </summary>
+    
+      <category term="开发工具" scheme="https://itsma.github.io/categories/DevTools/"/>
+    
+    
+      <category term="Devtools" scheme="https://itsma.github.io/tags/Devtools/"/>
+    
+  </entry>
   
   <entry>
     <title>Google编程规范</title>
