@@ -7,22 +7,24 @@
   
   
   
-  <title>快速排序 | ITS&#39;Ma Blog</title>
+  <title>简单排序 | ITS&#39;Ma Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。">
+  <meta name="description" content="常用的排序算法分析：选择排序，冒泡排序，插入排序">
 <meta name="keywords" content="algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="快速排序">
-<meta property="og:url" content="https://itsma.github.io/[object Object]/quicksort.html">
+<meta property="og:title" content="简单排序">
+<meta property="og:url" content="https://itsma.github.io/[object Object]/sortalgorithm.html">
 <meta property="og:site_name" content="ITS&#39;Ma Blog">
-<meta property="og:description" content="快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。">
+<meta property="og:description" content="常用的排序算法分析：选择排序，冒泡排序，插入排序">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://itsma.github.io/图片/qs.png">
-<meta property="og:updated_time" content="2018-08-17T01:47:58.931Z">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015224719590-1433219824.gif">
+<meta property="og:image" content="https://itsma.github.io/图片/bubbleosrt.gif">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015225645277-1151100000.gif">
+<meta property="og:updated_time" content="2018-08-17T01:50:30.504Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="快速排序">
-<meta name="twitter:description" content="快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。">
-<meta name="twitter:image" content="https://itsma.github.io/图片/qs.png">
+<meta name="twitter:title" content="简单排序">
+<meta name="twitter:description" content="常用的排序算法分析：选择排序，冒泡排序，插入排序">
+<meta name="twitter:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015224719590-1433219824.gif">
   
     <link rel="alternative" href="/atom.xml" title="ITS&#39;Ma Blog" type="application/atom+xml">
   
@@ -279,11 +281,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-简单排序" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/[object Object]/quicksort.html" class="article-date">
-      <time datetime="2018-08-14T11:43:42.000Z" itemprop="datePublished">2018-08-14</time>
+      <a  href="/[object Object]/sortalgorithm.html" class="article-date">
+      <time datetime="2018-08-13T11:01:51.000Z" itemprop="datePublished">2018-08-13</time>
 </a>
 
     </div>
@@ -297,7 +299,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      快速排序
+      简单排序
     </h1>
   
 
@@ -323,48 +325,42 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p> <excerpt in="" index="" |="" 首页摘要=""><br>快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。<br><a id="more"></a></excerpt></p>
-<p><the rest="" of="" contents="" |="" 余下全文=""><br>快速排序属于交换排序，通过元素之间的比较和交换位置来达到排序目的。不同的是，冒泡排序每一轮只把一个元素冒泡到数组一端，而快速排序在每一轮挑选一个基准元素，并让其他比它大的元素移动到数组一边，比它小的移动到数组另一边，从而把数组拆解成两个部分。这种思想就是分治法。</the></p>
-<p>在分治法的思想下，原数列在每一轮被拆分成两部分，每一部分在下一轮又分别被拆分成两部分，直到不可再分为止。</p>
-<p>这样一共需要多少轮呢？平均情况下需要$logN$轮，因此快速排序算法的平均时间复杂度是 <strong>O(NlogN)</strong></p>
-<h3 id="分"><a href="#分" class="headerlink" title="分"></a>分</h3><p>在分的阶段，就是将基准元素左边序列和右边序列再次治理。可以用递归实现。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;<span class="comment">//start指向第一个元素，end指向数组最后一个元素</span></span><br><span class="line">    <span class="keyword">if</span>(start&lt;=end)<span class="keyword">return</span>; <span class="comment">//递归结束条件</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//治</span></span><br><span class="line">    <span class="keyword">int</span> pivotIndex=partition(arr,start,end); <span class="comment">//进行一次快排，返回分治后基准元素在数组中的位置下标</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//分</span></span><br><span class="line">    qucikSort(arr,start,pivotIndex<span class="number">-1</span>); <span class="comment">//左边递归</span></span><br><span class="line">    quickSort(arr,pivotIndex+<span class="number">1</span>,end);　<span class="comment">//右边递归</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###　治</p>
-<p>在治的阶段，就是进行一次排序，把数组中大于基准元素的都移动到基准元素一边，大于基准元素的都移动到基准元素另一边。即partition()函数</p>
-<p>partition函数的实现方法有两种：</p>
-<ul>
-<li>挖坑法</li>
-<li>指针交换法</li>
-</ul>
-<h4 id="递归挖坑法"><a href="#递归挖坑法" class="headerlink" title="递归挖坑法"></a>递归挖坑法</h4><p>两个指针start和end分别指向数组的最左和最右两个元素。</p>
-<ol>
-<li>选取一个关键字(key)作为枢轴，一般取整组记录的第一个数/最后一个，这里采用选取序列最后一个数为枢轴，也是初始的坑位。</li>
-<li>设置两个变量left = 0;right = N - 1;</li>
-<li>从left一直向后走，直到找到一个大于key的值，然后将该数放入坑中，坑位变成了array[left]。</li>
-<li>right一直向前走，直到找到一个小于key的值，然后将该数放入坑中，坑位变成了array[right]。</li>
-<li>重复3和4的步骤，直到left和right相遇，然后将key放入最后一个坑位。</li>
-</ol>
-<p><strong>注意，以第一个元素(start)作为基准元素时，则end先动。否则，以最后的元素(end)作为基准元素，应该(start)先动。start走的时候end是不动的，反之亦然。因为end先走，所有最后一个坑肯定在arr[start]。</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//挖坑法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot=arr[start]; <span class="comment">//基准元素</span></span><br><span class="line">    <span class="keyword">while</span>(start&lt;end)&#123;</span><br><span class="line">        <span class="keyword">while</span>(strat&lt;end &amp;&amp; arr[end]&gt;=pivot )&#123;　<span class="comment">//大于等于</span></span><br><span class="line">            end--;   <span class="comment">//保持不动</span></span><br><span class="line">        &#125;</span><br><span class="line">        arr[start]=arr[end];　<span class="comment">//填“坑”</span></span><br><span class="line">        <span class="comment">//start++;</span></span><br><span class="line">        <span class="keyword">while</span>(start&lt;end &amp;&amp; arr[start]&lt;=pivot )&#123; <span class="comment">//小于等于</span></span><br><span class="line">            start++;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[end]=arr[start];　<span class="comment">//填“坑”</span></span><br><span class="line">        <span class="comment">//end--;</span></span><br><span class="line">    &#125;</span><br><span class="line">    arr[start]=pivot;　<span class="comment">//将基准元素填入最后的“坑”中　此时start&gt;=end</span></span><br><span class="line">    <span class="keyword">return</span> start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="递归指针交换法"><a href="#递归指针交换法" class="headerlink" title="递归指针交换法"></a>递归指针交换法</h4><p>两个指针left和right分别指向数组的最左start和最右end两个元素。</p>
-<ol>
-<li>选取一个关键字(key)作为枢轴，一般取整组记录的第一个数/最后一个，这里采用选取序列最后一个数为枢轴。</li>
-<li>设置两个变量left = 0;right = N - 1;</li>
-<li>从left一直向后走，直到找到一个大于key的值，right从后至前，直至找到一个小于key的值，然后交换这两个数。</li>
-<li>重复第三步，一直往后找，直到left和right相遇，这时将key放置left的位置即可</li>
-</ol>
-<p><img src="../../../../图片/qs.png" alt=""></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot=arr[start];</span><br><span class="line">    <span class="keyword">int</span> left=start; <span class="comment">//左指针</span></span><br><span class="line">    <span class="keyword">int</span> right=end; <span class="comment">//右指针</span></span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right &amp;&amp; arr[right]&gt;pivot )&#123;　<span class="comment">//没有等于号</span></span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right &amp;&amp; arr[left]&lt;pivot )&#123; <span class="comment">//没有等于号</span></span><br><span class="line">            left--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> temp=arr[left];</span><br><span class="line">        arr[left]=arr[right];</span><br><span class="line">        a[right]=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> t=arr[left]; <span class="comment">//指针重合,交换基准元素与指针位置元素</span></span><br><span class="line">    arr[left]=arr[start];</span><br><span class="line">    arr[start]=t</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h3><p>递归的算法主要是在划分子区间，如果要非递归实现快排，只要使用一个栈来保存区间就可以了。  一般将递归程序改成非递归首先想到的就是使用栈，因为递归本身就是一个压栈的过程。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start&gt;end)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stk;</span><br><span class="line">    stk.push(start);　<span class="comment">//左指针先入栈</span></span><br><span class="line">    stk.push(end);</span><br><span class="line">    <span class="keyword">while</span>(!stk.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> right=stk.top(); <span class="comment">//右指针先出栈</span></span><br><span class="line">        stk.pop();</span><br><span class="line">        <span class="keyword">int</span> left=stk.top();</span><br><span class="line">        stk.pop();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> pivotIndex=partition(arr,left,right);</span><br><span class="line">        <span class="keyword">if</span>(pivotIndex<span class="number">-1</span>&gt;left)&#123;　<span class="comment">//注意是left还是start，</span></span><br><span class="line">            stk.push(start);  <span class="comment">//注意入栈顺序，先入左边再入右边,push数组最左端的位置即start</span></span><br><span class="line">            stk.push(pivotIndex<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pivotIndex+<span class="number">1</span>&lt;right)&#123;<span class="comment">//判断的是基准位置与排序区间，应该是partition的left和right</span></span><br><span class="line">            stk.push(pivotIndex+<span class="number">1</span>);</span><br><span class="line">            stk.push(end);</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p><strong>不稳定排序</strong></p>
-<p>比如序列为5 3 3 4 3 8 9 10 11，现在中枢元素5和3（第5个元素，下标从1开始计）交换就会把元素3的稳定性打乱，所以快速排序是一个不稳定的排序算法，不稳定发生在中枢元素和a[j] 交换的时刻。</p>
-<p>时间复杂度</p>
-<p>最坏：在基准元素是数组最大或者最小值时，时间复杂度是<strong>$O(N^2)$</strong></p>
-<p>最好：基准元素是中间值。时间复杂度是$O(NlogN)$</p>
-<p>平均：<strong>$O(NlogN)$</strong></p>
-<p><a href="https://blog.csdn.net/qq_36528114/article/details/78667034" target="_blank" rel="noopener">参考</a></p>
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>常用的排序算法分析：选择排序，冒泡排序，插入排序<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
 
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><h4 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h4><p>首先遍历数组找到最小（大）元素，存放到数组的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕</p>
+<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015224719590-1433219824.gif" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(<span class="keyword">int</span> a[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = a.size();</span><br><span class="line">    <span class="keyword">int</span> min_index; <span class="comment">//需要记录最小值和下标</span></span><br><span class="line">    <span class="keyword">if</span>(len &lt;= <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;++i)&#123;</span><br><span class="line">        min_index=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;len;++j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[min_index]&gt;a[j])&#123;</span><br><span class="line">                min_index=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> temp=a[i];</span><br><span class="line">        a[i]=a[min_index];　<span class="comment">//交换</span></span><br><span class="line">        a[min_index]=temp;      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><p>最稳定的排序算法</p>
+<p>最坏，最好和平均时间复杂度总是$O(N^2)$</p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><h4 id="算法原理-1"><a href="#算法原理-1" class="headerlink" title="算法原理"></a>算法原理</h4><p>顺序依次相邻元素比较，大的往后移(从小到大排序)，这样能保证一轮过后最大的数在最后面。再进行一轮比较得到第二大的数，依次类推。</p>
+<p><img src="../../../../图片/bubbleosrt.gif" alt=""></p>
+<p>N个数排序需要重复N-1次；</p>
+<p>第K次排序时，证明已经有K个数排好序，不需要再排。则第K次需要的比较的次数为(N-1-K)次；</p>
+<p>所以可以用双重循环语句，外层控制循环多少趟，内层控制每一趟的循环次数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(<span class="keyword">int</span> a[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len=a.size();</span><br><span class="line">    <span class="keyword">if</span>(len&lt;=<span class="number">1</span>)<span class="keyword">return</span>; <span class="comment">//数组为空或者只有一个数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len<span class="number">-1</span>;i++)&#123; <span class="comment">//n个数需要　重复　（n-1）次</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len<span class="number">-1</span>-i;++j)&#123;　<span class="comment">//每一次都需要　比较　（n-1-i）次</span></span><br><span class="line">            <span class="keyword">if</span>(a[j]&gt;a[j+<span class="number">1</span>])swap(a[j],a[j+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>改进</strong>：当数组已经排好序时，可以直接跳出循环得到结果。不需要再做比较</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(<span class="keyword">int</span> a[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len=a.size();</span><br><span class="line">    <span class="keyword">bool</span> flag=<span class="literal">true</span>; <span class="comment">//true表示乱序，</span></span><br><span class="line">    <span class="keyword">if</span>(len&lt;=<span class="number">1</span>)<span class="keyword">return</span>; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len<span class="number">-1</span> &amp;&amp; flag;i++)&#123; </span><br><span class="line">        flag=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len<span class="number">-1</span>-i;++j)&#123;　<span class="comment">//如果没有进入if语句说明数组已经排好序，下次直接跳出。</span></span><br><span class="line">            <span class="keyword">if</span>(a[j]&gt;a[j+<span class="number">1</span>])&#123;</span><br><span class="line">                swap(a[j],a[j+<span class="number">1</span>]);</span><br><span class="line">                flag=<span class="literal">true</span>; <span class="comment">//有元素交换，则说明排序未完成。</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h4><p>时间复杂度</p>
+<ol>
+<li>最好：$O(N)$。在数组已经是正序的情况下，只需要遍历一遍就可以跳出循环。</li>
+<li>最坏：$O(N^2)$。在数组逆序的情况下。</li>
+<li>平均：$O(N^2)$。</li>
+</ol>
+<p><strong>稳定排序</strong></p>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><h4 id="算法原理-2"><a href="#算法原理-2" class="headerlink" title="算法原理"></a>算法原理</h4><p>对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入</p>
+<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015225645277-1151100000.gif" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> a[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = a.size();</span><br><span class="line">    <span class="keyword">if</span>(len&lt;=<span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;len<span class="number">-1</span>;++i)&#123;</span><br><span class="line">        <span class="keyword">int</span> j=i<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> key=a[i];</span><br><span class="line">        <span class="keyword">while</span>( j&gt;=<span class="number">0</span> &amp;&amp; key&gt;a[j] )&#123;</span><br><span class="line">            a[j+<span class="number">1</span>]=a[j];</span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line">        a[j+<span class="number">1</span>]=key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="性质-2"><a href="#性质-2" class="headerlink" title="性质"></a>性质</h4><p>时间复杂度：</p>
+<ol>
+<li>最好：$O(N)$。已经排好序的数组。遍历一遍。</li>
+<li>最坏：$O(N^2)$。逆序</li>
+<li>平均：$O(N^2)$。</li>
+</ol>
+<p><strong>不稳定排序：</strong></p>
+<p>序列5 8 5 2 9，第一遍选择第1个元素5会和2交换，那么原序列中2个5的相对前后顺序就被破坏了，所以选择排序不是一个稳定的排序算法。</p>
+<p><a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank" rel="noopener">参考</a></p>
+</the>
       
     </div>
     
@@ -372,13 +368,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/[object Object]/quicksort.html">快速排序</a></p>
+        <p><span>本文标题:</span><a  href="/[object Object]/sortalgorithm.html">简单排序</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 ITS-Ma 的个人博客">ITS-Ma</a></p>
-        <p><span>发布时间:</span>2018年08月14日 - 19时43分</p>
-        <p><span>最后更新:</span>2018年08月17日 - 09时47分</p>
+        <p><span>发布时间:</span>2018年08月13日 - 19时01分</p>
+        <p><span>最后更新:</span>2018年08月17日 - 09时50分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/[object Object]/quicksort.html" title="快速排序">https://itsma.github.io/[object Object]/quicksort.html</a>
-            <span class="copy-path" data-clipboard-text="原文: https://itsma.github.io/[object Object]/quicksort.html　　作者: ITS-Ma" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/[object Object]/sortalgorithm.html" title="简单排序">https://itsma.github.io/[object Object]/sortalgorithm.html</a>
+            <span class="copy-path" data-clipboard-text="原文: https://itsma.github.io/[object Object]/sortalgorithm.html　　作者: ITS-Ma" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -389,18 +385,18 @@
 
 <nav id="article-nav">
   
-    <a  href="/[object Object]/mergesort.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/[object Object]/quicksort.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          归并排序
+          快速排序
         
       </div>
     </a>
   
   
-    <a  href="/[object Object]/sortalgorithm.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">简单排序</div>
+    <a  href="/[object Object]/webtools.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Google浏览器插件</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -412,7 +408,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#分"><span class="toc-number">1.</span> <span class="toc-text">分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#递归挖坑法"><span class="toc-number">1.1.</span> <span class="toc-text">递归挖坑法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#递归指针交换法"><span class="toc-number">1.2.</span> <span class="toc-text">递归指针交换法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非递归实现"><span class="toc-number">2.</span> <span class="toc-text">非递归实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性质"><span class="toc-number">3.</span> <span class="toc-text">性质</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择排序"><span class="toc-number">1.</span> <span class="toc-text">选择排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法原理"><span class="toc-number">1.1.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性质"><span class="toc-number">1.2.</span> <span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冒泡排序"><span class="toc-number">2.</span> <span class="toc-text">冒泡排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法原理-1"><span class="toc-number">2.1.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性质-1"><span class="toc-number">2.2.</span> <span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入排序"><span class="toc-number">3.</span> <span class="toc-text">插入排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法原理-2"><span class="toc-number">3.1.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性质-2"><span class="toc-number">3.2.</span> <span class="toc-text">性质</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -461,13 +457,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/[object Object]/mergesort.html" title="上一篇: 归并排序">
+            <a  href="/[object Object]/quicksort.html" title="上一篇: 快速排序">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/[object Object]/sortalgorithm.html" title="下一篇: 简单排序">
+            <a  href="/[object Object]/webtools.html" title="下一篇: Google浏览器插件">
                 <i class="fa fa-angle-right"></i>
             </a>
         

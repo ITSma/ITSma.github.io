@@ -7,22 +7,22 @@
   
   
   
-  <title>快速排序 | ITS&#39;Ma Blog</title>
+  <title>堆排序 | ITS&#39;Ma Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。">
+  <meta name="description" content="堆排序是利用堆的性质来对数组进行排序，主要分为建堆和交换两个步骤">
 <meta name="keywords" content="algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="快速排序">
-<meta property="og:url" content="https://itsma.github.io/[object Object]/quicksort.html">
+<meta property="og:title" content="堆排序">
+<meta property="og:url" content="https://itsma.github.io/[object Object]/heapsort.html">
 <meta property="og:site_name" content="ITS&#39;Ma Blog">
-<meta property="og:description" content="快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。">
+<meta property="og:description" content="堆排序是利用堆的性质来对数组进行排序，主要分为建堆和交换两个步骤">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://itsma.github.io/图片/qs.png">
-<meta property="og:updated_time" content="2018-08-17T01:47:58.931Z">
+<meta property="og:image" content="http://img.chuansong.me/mmbiz_png/zrIoKPEFItdOmAIKW4mHjIkFD6zKGNLBFSEv8f6duBoE3YAyNzhUuV3woKzCPrYpibQ3icB1zvhrkSZMDKP10V0Q/?wx_fmt=png">
+<meta property="og:updated_time" content="2018-08-17T09:21:51.376Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="快速排序">
-<meta name="twitter:description" content="快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。">
-<meta name="twitter:image" content="https://itsma.github.io/图片/qs.png">
+<meta name="twitter:title" content="堆排序">
+<meta name="twitter:description" content="堆排序是利用堆的性质来对数组进行排序，主要分为建堆和交换两个步骤">
+<meta name="twitter:image" content="http://img.chuansong.me/mmbiz_png/zrIoKPEFItdOmAIKW4mHjIkFD6zKGNLBFSEv8f6duBoE3YAyNzhUuV3woKzCPrYpibQ3icB1zvhrkSZMDKP10V0Q/?wx_fmt=png">
   
     <link rel="alternative" href="/atom.xml" title="ITS&#39;Ma Blog" type="application/atom+xml">
   
@@ -279,11 +279,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-堆排序" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/[object Object]/quicksort.html" class="article-date">
-      <time datetime="2018-08-14T11:43:42.000Z" itemprop="datePublished">2018-08-14</time>
+      <a  href="/[object Object]/heapsort.html" class="article-date">
+      <time datetime="2018-08-17T01:56:52.000Z" itemprop="datePublished">2018-08-17</time>
 </a>
 
     </div>
@@ -297,7 +297,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      快速排序
+      堆排序
     </h1>
   
 
@@ -323,48 +323,40 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p> <excerpt in="" index="" |="" 首页摘要=""><br>快速排序是由冒泡排序演变而来，都属于交换排序。快速排序之所以快速，是因为采用了分治法。<br><a id="more"></a></excerpt></p>
-<p><the rest="" of="" contents="" |="" 余下全文=""><br>快速排序属于交换排序，通过元素之间的比较和交换位置来达到排序目的。不同的是，冒泡排序每一轮只把一个元素冒泡到数组一端，而快速排序在每一轮挑选一个基准元素，并让其他比它大的元素移动到数组一边，比它小的移动到数组另一边，从而把数组拆解成两个部分。这种思想就是分治法。</the></p>
-<p>在分治法的思想下，原数列在每一轮被拆分成两部分，每一部分在下一轮又分别被拆分成两部分，直到不可再分为止。</p>
-<p>这样一共需要多少轮呢？平均情况下需要$logN$轮，因此快速排序算法的平均时间复杂度是 <strong>O(NlogN)</strong></p>
-<h3 id="分"><a href="#分" class="headerlink" title="分"></a>分</h3><p>在分的阶段，就是将基准元素左边序列和右边序列再次治理。可以用递归实现。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;<span class="comment">//start指向第一个元素，end指向数组最后一个元素</span></span><br><span class="line">    <span class="keyword">if</span>(start&lt;=end)<span class="keyword">return</span>; <span class="comment">//递归结束条件</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//治</span></span><br><span class="line">    <span class="keyword">int</span> pivotIndex=partition(arr,start,end); <span class="comment">//进行一次快排，返回分治后基准元素在数组中的位置下标</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//分</span></span><br><span class="line">    qucikSort(arr,start,pivotIndex<span class="number">-1</span>); <span class="comment">//左边递归</span></span><br><span class="line">    quickSort(arr,pivotIndex+<span class="number">1</span>,end);　<span class="comment">//右边递归</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###　治</p>
-<p>在治的阶段，就是进行一次排序，把数组中大于基准元素的都移动到基准元素一边，大于基准元素的都移动到基准元素另一边。即partition()函数</p>
-<p>partition函数的实现方法有两种：</p>
-<ul>
-<li>挖坑法</li>
-<li>指针交换法</li>
-</ul>
-<h4 id="递归挖坑法"><a href="#递归挖坑法" class="headerlink" title="递归挖坑法"></a>递归挖坑法</h4><p>两个指针start和end分别指向数组的最左和最右两个元素。</p>
-<ol>
-<li>选取一个关键字(key)作为枢轴，一般取整组记录的第一个数/最后一个，这里采用选取序列最后一个数为枢轴，也是初始的坑位。</li>
-<li>设置两个变量left = 0;right = N - 1;</li>
-<li>从left一直向后走，直到找到一个大于key的值，然后将该数放入坑中，坑位变成了array[left]。</li>
-<li>right一直向前走，直到找到一个小于key的值，然后将该数放入坑中，坑位变成了array[right]。</li>
-<li>重复3和4的步骤，直到left和right相遇，然后将key放入最后一个坑位。</li>
-</ol>
-<p><strong>注意，以第一个元素(start)作为基准元素时，则end先动。否则，以最后的元素(end)作为基准元素，应该(start)先动。start走的时候end是不动的，反之亦然。因为end先走，所有最后一个坑肯定在arr[start]。</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//挖坑法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot=arr[start]; <span class="comment">//基准元素</span></span><br><span class="line">    <span class="keyword">while</span>(start&lt;end)&#123;</span><br><span class="line">        <span class="keyword">while</span>(strat&lt;end &amp;&amp; arr[end]&gt;=pivot )&#123;　<span class="comment">//大于等于</span></span><br><span class="line">            end--;   <span class="comment">//保持不动</span></span><br><span class="line">        &#125;</span><br><span class="line">        arr[start]=arr[end];　<span class="comment">//填“坑”</span></span><br><span class="line">        <span class="comment">//start++;</span></span><br><span class="line">        <span class="keyword">while</span>(start&lt;end &amp;&amp; arr[start]&lt;=pivot )&#123; <span class="comment">//小于等于</span></span><br><span class="line">            start++;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[end]=arr[start];　<span class="comment">//填“坑”</span></span><br><span class="line">        <span class="comment">//end--;</span></span><br><span class="line">    &#125;</span><br><span class="line">    arr[start]=pivot;　<span class="comment">//将基准元素填入最后的“坑”中　此时start&gt;=end</span></span><br><span class="line">    <span class="keyword">return</span> start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="递归指针交换法"><a href="#递归指针交换法" class="headerlink" title="递归指针交换法"></a>递归指针交换法</h4><p>两个指针left和right分别指向数组的最左start和最右end两个元素。</p>
-<ol>
-<li>选取一个关键字(key)作为枢轴，一般取整组记录的第一个数/最后一个，这里采用选取序列最后一个数为枢轴。</li>
-<li>设置两个变量left = 0;right = N - 1;</li>
-<li>从left一直向后走，直到找到一个大于key的值，right从后至前，直至找到一个小于key的值，然后交换这两个数。</li>
-<li>重复第三步，一直往后找，直到left和right相遇，这时将key放置left的位置即可</li>
-</ol>
-<p><img src="../../../../图片/qs.png" alt=""></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot=arr[start];</span><br><span class="line">    <span class="keyword">int</span> left=start; <span class="comment">//左指针</span></span><br><span class="line">    <span class="keyword">int</span> right=end; <span class="comment">//右指针</span></span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right &amp;&amp; arr[right]&gt;pivot )&#123;　<span class="comment">//没有等于号</span></span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right &amp;&amp; arr[left]&lt;pivot )&#123; <span class="comment">//没有等于号</span></span><br><span class="line">            left--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> temp=arr[left];</span><br><span class="line">        arr[left]=arr[right];</span><br><span class="line">        a[right]=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> t=arr[left]; <span class="comment">//指针重合,交换基准元素与指针位置元素</span></span><br><span class="line">    arr[left]=arr[start];</span><br><span class="line">    arr[start]=t</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h3><p>递归的算法主要是在划分子区间，如果要非递归实现快排，只要使用一个栈来保存区间就可以了。  一般将递归程序改成非递归首先想到的就是使用栈，因为递归本身就是一个压栈的过程。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> *arr,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start&gt;end)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stk;</span><br><span class="line">    stk.push(start);　<span class="comment">//左指针先入栈</span></span><br><span class="line">    stk.push(end);</span><br><span class="line">    <span class="keyword">while</span>(!stk.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> right=stk.top(); <span class="comment">//右指针先出栈</span></span><br><span class="line">        stk.pop();</span><br><span class="line">        <span class="keyword">int</span> left=stk.top();</span><br><span class="line">        stk.pop();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> pivotIndex=partition(arr,left,right);</span><br><span class="line">        <span class="keyword">if</span>(pivotIndex<span class="number">-1</span>&gt;left)&#123;　<span class="comment">//注意是left还是start，</span></span><br><span class="line">            stk.push(start);  <span class="comment">//注意入栈顺序，先入左边再入右边,push数组最左端的位置即start</span></span><br><span class="line">            stk.push(pivotIndex<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pivotIndex+<span class="number">1</span>&lt;right)&#123;<span class="comment">//判断的是基准位置与排序区间，应该是partition的left和right</span></span><br><span class="line">            stk.push(pivotIndex+<span class="number">1</span>);</span><br><span class="line">            stk.push(end);</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p><strong>不稳定排序</strong></p>
-<p>比如序列为5 3 3 4 3 8 9 10 11，现在中枢元素5和3（第5个元素，下标从1开始计）交换就会把元素3的稳定性打乱，所以快速排序是一个不稳定的排序算法，不稳定发生在中枢元素和a[j] 交换的时刻。</p>
-<p>时间复杂度</p>
-<p>最坏：在基准元素是数组最大或者最小值时，时间复杂度是<strong>$O(N^2)$</strong></p>
-<p>最好：基准元素是中间值。时间复杂度是$O(NlogN)$</p>
-<p>平均：<strong>$O(NlogN)$</strong></p>
-<p><a href="https://blog.csdn.net/qq_36528114/article/details/78667034" target="_blank" rel="noopener">参考</a></p>
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>堆排序是利用堆的性质来对数组进行排序，主要分为<strong>建堆</strong>和<strong>交换</strong>两个步骤<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
 
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆在形式上是一棵满足一定性质的二叉树。</p>
+<p>由于二叉树良好的形态已经包含了父节点和孩子节点的关系信息，因此就可以不需要使用链表而使用<strong>数组</strong>来存储堆。</p>
+<p>堆分为两种，最大堆和最小堆，以最大堆为例，最大堆保持了根结点大于两个左右两个孩子，同时所有子树一次类推。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> heap[]=&#123;<span class="number">9</span>,<span class="number">8</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>设父节点的编号为</strong> <strong>i, 则其左孩子节点的编号为2*i+1, 右孩子节点的编号为2*i+2</strong> </p>
+<p><strong>设孩子节点的编号为i, 则其父节点的编号为(i-1)/2</strong></p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>堆排序指的就是利用堆的性质对数组进行排序。</p>
+<p><strong>小顶堆中根节点小于两个左右子节点的性质。</strong></p>
+<p>将一个无序数组看做是一个完全二叉树，此时没有成堆。</p>
+<h4 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h4><p>将该数组进行建堆操作，</p>
+<p>即将父节点和左右子节点三个数进行比较，最小的数作为父节点，</p>
+<p>循环操作整颗树后，根节点就是数组中最小的树。</p>
+<p>问题转化为将<strong>树中的最小值移动至根节点</strong>。</p>
+<p><img src="http://img.chuansong.me/mmbiz_png/zrIoKPEFItdOmAIKW4mHjIkFD6zKGNLBFSEv8f6duBoE3YAyNzhUuV3woKzCPrYpibQ3icB1zvhrkSZMDKP10V0Q/?wx_fmt=png" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">buildHeap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr,<span class="keyword">int</span> unsortSize)</span></span>&#123;<span class="comment">//unsortSize表示未排序元素的个数</span></span><br><span class="line">    <span class="keyword">int</span> rootIndex=unsortSize/<span class="number">2</span><span class="number">-1</span>;<span class="comment">//第一个非叶子节点的下标</span></span><br><span class="line">    <span class="keyword">for</span>(;rootIndex&gt;=<span class="number">0</span>;rootIndex--)&#123;</span><br><span class="line">        <span class="comment">//左右节点都存在，比较三个数，最小值与根节点交换</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="number">2</span>*rootIndex+<span class="number">2</span>&lt;=unsortSize)&#123;<span class="comment">//注意是小于未排序数列的大小，不是整个数列的大小</span></span><br><span class="line">            <span class="keyword">if</span>(arr[<span class="number">2</span>*rootIndex+<span class="number">1</span>]&lt;arr[<span class="number">2</span>*rootIndex+<span class="number">2</span>])&#123;<span class="comment">//左节点小于右节点</span></span><br><span class="line">                <span class="keyword">if</span>(arr[rootIndex]&gt;arr[<span class="number">2</span>*rootIndex+<span class="number">1</span>])&#123;<span class="comment">//左节点最小</span></span><br><span class="line">                    swap(arr[rootIndex],arr[<span class="number">2</span>*rootIndex+<span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;　　　<span class="comment">//右节点小于左节点</span></span><br><span class="line">                <span class="keyword">if</span>(arr[rootIndex]&gt;arr[<span class="number">2</span>*rootIndex+<span class="number">2</span>])&#123;<span class="comment">//右节点最小</span></span><br><span class="line">                    swap(arr[rootIndex],arr[<span class="number">2</span>*rootIndex+<span class="number">2</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;      </span><br><span class="line">        &#125;　<span class="keyword">else</span> &#123;  <span class="comment">//右节点不存在，只比较根节点与左节点</span></span><br><span class="line">            <span class="keyword">if</span>(arr[rootIndex]&gt;arr[<span class="number">2</span>*rootIndex+<span class="number">2</span>])&#123;</span><br><span class="line">                swap(arr[rootIndex],arr[<span class="number">2</span>*rootIndex+<span class="number">2</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意建堆时节点数是小于未排序数列的大小，不是整个数列的大小</strong></p>
+<h4 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h4><p>建堆操作后，数组中的最小值就是根节点。为了循环遍历，我们将最小值与数组最后一个数进行交换。这样，除数组最后一个数之外又变成了一个<strong>能构成完全二叉树的无序数组</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapHeap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=arr[end];</span><br><span class="line">    arr[end]=arr[<span class="number">0</span>];</span><br><span class="line">    arr[<span class="number">0</span>]=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>堆排序就是先建立一个小根堆，然后不断地交换堆顶最小元素，交换N-1次就OK了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heapSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> size=arr.size();</span><br><span class="line">    <span class="keyword">if</span>(size&lt;=<span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=size;i&gt;<span class="number">1</span>;--i)&#123;<span class="comment">//size表示未排序元素个数，当只剩一个时就退出，所以是i&gt;1</span></span><br><span class="line">        buildHeap(arr,i);</span><br><span class="line">        swapHeap(arr,i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p>时间复杂度：</p>
+<ul>
+<li>建堆复杂度为$O(logN)$</li>
+<li>交换可以忽略</li>
+<li>需要进行$N-1$次建堆</li>
+</ul>
+<p>所以，堆排序的时间复杂度是$O(N-1)*O(logN)=O(NlogN)$</p>
+<p><strong>不稳定排序</strong></p>
+<p>在一个长为n 的序列，堆排序的过程是从第n / 2开始和其子节点共3个值选择最大（大顶堆）或者最小（小顶堆），这3个元素之间的选择当然不会破坏稳定性。但当为n / 2 - 1， n / 2 - 2， … 1这些个父节点选择元素时，就会破坏稳定性。有可能第n / 2个父节点交换把后面一个元素交换过去了，而第n / 2 - 1个父节点把后面一个相同的元素没 有交换，那么这2个相同的元素之间的稳定性就被破坏了。所以，堆排序不是稳定的排序算法</p>
+<p><a href="http://chuansong.me/n/2129062451005" target="_blank" rel="noopener">参考资料</a></p>
+</the>
       
     </div>
     
@@ -372,13 +364,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/[object Object]/quicksort.html">快速排序</a></p>
+        <p><span>本文标题:</span><a  href="/[object Object]/heapsort.html">堆排序</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 ITS-Ma 的个人博客">ITS-Ma</a></p>
-        <p><span>发布时间:</span>2018年08月14日 - 19时43分</p>
-        <p><span>最后更新:</span>2018年08月17日 - 09时47分</p>
+        <p><span>发布时间:</span>2018年08月17日 - 09时56分</p>
+        <p><span>最后更新:</span>2018年08月17日 - 17时21分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/[object Object]/quicksort.html" title="快速排序">https://itsma.github.io/[object Object]/quicksort.html</a>
-            <span class="copy-path" data-clipboard-text="原文: https://itsma.github.io/[object Object]/quicksort.html　　作者: ITS-Ma" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/[object Object]/heapsort.html" title="堆排序">https://itsma.github.io/[object Object]/heapsort.html</a>
+            <span class="copy-path" data-clipboard-text="原文: https://itsma.github.io/[object Object]/heapsort.html　　作者: ITS-Ma" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -389,18 +381,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/[object Object]/mergesort.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          归并排序
-        
-      </div>
-    </a>
   
-  
-    <a  href="/[object Object]/sortalgorithm.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">简单排序</div>
+    <a  href="/[object Object]/mergesort.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">归并排序</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -412,7 +395,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#分"><span class="toc-number">1.</span> <span class="toc-text">分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#递归挖坑法"><span class="toc-number">1.1.</span> <span class="toc-text">递归挖坑法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#递归指针交换法"><span class="toc-number">1.2.</span> <span class="toc-text">递归指针交换法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非递归实现"><span class="toc-number">2.</span> <span class="toc-text">非递归实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性质"><span class="toc-number">3.</span> <span class="toc-text">性质</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#堆"><span class="toc-number">1.</span> <span class="toc-text">堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆排序"><span class="toc-number">2.</span> <span class="toc-text">堆排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#建堆"><span class="toc-number">2.1.</span> <span class="toc-text">建堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交换"><span class="toc-number">2.2.</span> <span class="toc-text">交换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排序"><span class="toc-number">2.3.</span> <span class="toc-text">排序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性质"><span class="toc-number">3.</span> <span class="toc-text">性质</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -461,13 +444,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/[object Object]/mergesort.html" title="上一篇: 归并排序">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/[object Object]/sortalgorithm.html" title="下一篇: 简单排序">
+            <a  href="/[object Object]/mergesort.html" title="下一篇: 归并排序">
                 <i class="fa fa-angle-right"></i>
             </a>
         
