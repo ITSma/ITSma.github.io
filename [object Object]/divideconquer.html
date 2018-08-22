@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
+  
+  <title>分治 | ITS&#39;Ma Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="分治法，递归求解一个问题，在每一层递归中应用分解，解决和合并三个步骤。">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分治">
+<meta property="og:url" content="https://itsma.github.io/[object Object]/divideconquer.html">
+<meta property="og:site_name" content="ITS&#39;Ma Blog">
+<meta property="og:description" content="分治法，递归求解一个问题，在每一层递归中应用分解，解决和合并三个步骤。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-22T08:51:11.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分治">
+<meta name="twitter:description" content="分治法，递归求解一个问题，在每一层递归中应用分解，解决和合并三个步骤。">
+  
+    <link rel="alternative" href="/atom.xml" title="ITS&#39;Ma Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">ITS-Ma</a></h1>
+        </hgroup>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">所有文章</a></li>
+                        
+                            <li><a  href="/categories/Base">基础学习</a></li>
+                        
+                            <li><a  href="/categories/ROS/">ROS学习</a></li>
+                        
+                            <li><a  href="/categories/algorithm">算法学习</a></li>
+                        
+                            <li><a  href="/categories/DevTools">开发工具</a></li>
+                        
+                            <li><a  href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="/xxxxx" title="github">github</a>
+                            
+                                <a class="fl weibo"  target="_blank" href="/xxxxxxxx" title="weibo">weibo</a>
+                            
+                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Base/" style="font-size: 10px;">Base</a> <a href="/tags/Devtools/" style="font-size: 10px;">Devtools</a> <a href="/tags/ROS/" style="font-size: 10px;">ROS</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.csdn.net/baidu_21483933">csdn</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://segmentfault.com/blog/maocg_web">segmentfault</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/eb37ef89c746/latest_articles">简书</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">爱动漫,爱游戏,爱编程,爱运动,爱的太多了!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">ITS-Ma</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">ITS-Ma</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/categories/Base">基础学习</a></li>
+                
+                    <li><a href="/categories/ROS/">ROS学习</a></li>
+                
+                    <li><a href="/categories/algorithm">算法学习</a></li>
+                
+                    <li><a href="/categories/DevTools">开发工具</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="/xxxxx" title="github">github</a>
+                    
+                        <a class="weibo" target="_blank" href="/xxxxxxxx" title="weibo">weibo</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-分治" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/[object Object]/divideconquer.html" class="article-date">
+      <time datetime="2018-08-20T02:08:50.000Z" itemprop="datePublished">2018-08-20</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      分治
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>分治法，递归求解一个问题，在每一层递归中应用<strong>分解，解决和合并</strong>三个步骤。<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="分解"><a href="#分解" class="headerlink" title="分解"></a>分解</h2><p>将问题划分为子问题，子问题的形式与原问题一样，只是规模更小。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>如果子问题的规模足够小，则停止递归，直接求解</p>
+<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>将子问题的解组合成原问题的解</p>
+<p>有时除了与原问题形式完全一样的规模更小的子问题外，还需要求解与原问题不完全一样的子问题，这些可以在合并步骤完成，</p>
+<h2 id="最大子数组"><a href="#最大子数组" class="headerlink" title="最大子数组"></a>最大子数组</h2><h2 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h2><h3 id="前序（根左右）"><a href="#前序（根左右）" class="headerlink" title="前序（根左右）"></a>前序（根左右）</h3><p>####　非递归</p>
+<p>栈保存的是访问树节点的顺序，先进后出。入栈表示先不访问节点，出栈表示访问该节点。将当前指针指向的节点又看做根节点。</p>
+<p>先序遍历二叉树的时候，首先访问根结点，再访问左孩子，最后访问右孩子。</p>
+<p>在二叉树先序遍历非递归算法中:</p>
+<ol>
+<li>先将根结点压栈，在栈不为空的时候执行循环;</li>
+<li>让栈顶元素p出栈，访问栈顶元素p;</li>
+<li>如果p的右孩子不为空，则让其右孩子先进栈</li>
+<li>如果p的左孩子不为空，则再让其左孩子进栈</li>
+</ol>
+<p><strong>(注意：进栈顺序一定是先右孩子，再左孩子)</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(TreeNode *t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</span><br><span class="line">    TreeNode *p=t;</span><br><span class="line">    stk.push(p);</span><br><span class="line">    <span class="keyword">while</span>(!stk.empty())&#123;</span><br><span class="line">        p=stk.top();</span><br><span class="line">        stk.pop();</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;p-&gt;val&lt;&lt;<span class="string">" "</span>;<span class="comment">//访问根节点</span></span><br><span class="line">        <span class="comment">//注意入栈顺序</span></span><br><span class="line">        <span class="keyword">if</span>(p-&gt;right)stk.push(p-&gt;right);<span class="comment">//右子节点先入栈</span></span><br><span class="line">        <span class="keyword">if</span>(p-&gt;left)stk.push(p-&gt;left);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(TreeNode *t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</span><br><span class="line">    TreeNode *p=t;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">nullptr</span>||!stk.empty())&#123;</span><br><span class="line">        <span class="keyword">while</span>(p!=<span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;p-&gt;val&lt;&lt;<span class="string">" "</span>;<span class="comment">//先访问根节点</span></span><br><span class="line">            stk.push(p);</span><br><span class="line">            p=p-&gt;left;  <span class="comment">//再访问左子节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!stk.empty())&#123;</span><br><span class="line">            p=stk.top();</span><br><span class="line">            stk.pop();</span><br><span class="line">            p=p-&gt;right; <span class="comment">//右节点进行同样的操作，可以为空节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="中序（左根右）"><a href="#中序（左根右）" class="headerlink" title="中序（左根右）"></a>中序（左根右）</h3><h4 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h4><p>栈保存的是访问树节点的顺序，先进后出。入栈表示先不访问节点，出栈表示访问该节点。将当前指针指向的节点又看做根节点。</p>
+<p>中序遍历的顺序是从最左节点开始的，所以需要将根节点的左节点全部入栈，直到最左节点(即左子节点为空)也入栈，将最左节点出栈进行访问，然后将当前的指针P指向栈顶结点的右孩子，使其作为根节点继续相同的处理。</p>
+<ol>
+<li>刚开始指针指向树的根节点。将节点入栈后将指针指向左子节点，表示的是优先访问左子节点，先不访问根节点。</li>
+<li>继续入栈根节点，直到左子节点为空，就表示没有左子树了。</li>
+<li>将栈顶元素出栈，表示访问该节点，即左子节点为空的根节点。</li>
+<li>按照中序遍历规则，输出该节点。</li>
+<li>将指针指向该节点的右子节点，表示访问右子树。继续遍历。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder_NoRecur</span><span class="params">(TreeNode *t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</span><br><span class="line">    TreeNode *p=t;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">nullptr</span>||!stk.empty())&#123;</span><br><span class="line">        <span class="keyword">while</span>(p!=<span class="literal">nullptr</span>)&#123;<span class="comment">//将节点的左子树全部遍历</span></span><br><span class="line">            stk.push(p);</span><br><span class="line">            p=p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!stk.empty())&#123;</span><br><span class="line">            p=stk.top();  <span class="comment">//添加空栈判断加强鲁邦性if(!stk.empty())&#123;&#125;</span></span><br><span class="line">            stk.pop();</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;p-&gt;val&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">            p=p-&gt;right;　<span class="comment">//转换到右节点，可以为空节点          </span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.cnblogs.com/SHERO-Vae/p/5800363.html" target="_blank" rel="noopener">参考</a></p>
+<h3 id="后序（左右根）"><a href="#后序（左右根）" class="headerlink" title="后序（左右根）"></a>后序（左右根）</h3><h4 id="非递归-1"><a href="#非递归-1" class="headerlink" title="非递归"></a>非递归</h4><p>后序遍历的非递归实现是三种遍历方式中最难的一种。</p>
+<p>后序遍历也是最左节点开始遍历，所以需要从根结点开始，将所有<strong>最左结点</strong>全部压栈，每当一个结点出栈时，都先扫描该结点的右子树，只有当一个结点的左孩子和右孩子结点均被访问过了，才能访问结点自身。</p>
+<p>辅助变量：</p>
+<ul>
+<li>ｆｌａｇ＝１表示当前结点的左孩子为空或者已被访问</li>
+<li>ＴｒｅｅＮｏｄｅ　*ｐｒｅ：表示之前访问的节点</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(TreeNode *t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</span><br><span class="line">    TreeNode *p=t;  <span class="comment">//当前指针指向的节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> flag=<span class="number">0</span>;　<span class="comment">//标识位，用来表示左子节点已经被访问　或者　左子节点为空</span></span><br><span class="line">    TreeNode *pre;  <span class="comment">//前驱节点，表示访问过的节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(p!=<span class="literal">nullptr</span>)&#123;　<span class="comment">//所有最左节点入栈，从最左节点开始</span></span><br><span class="line">            stk.push(p);</span><br><span class="line">            p=p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        flag=<span class="number">1</span>;</span><br><span class="line">        pre=<span class="literal">nullptr</span>;　<span class="comment">//指向当前节点的前驱节点</span></span><br><span class="line">        <span class="keyword">while</span>(!stk.empty() &amp;&amp; flag==<span class="number">1</span>)&#123;　<span class="comment">//当左子树已经被访问或者为空时，存在两种情况：</span></span><br><span class="line">            p=stk.top(); <span class="comment">//只获取栈顶元素，不出栈访问。因为还存在两种情况：</span></span><br><span class="line">            <span class="keyword">if</span>(p-&gt;right==pre)&#123; <span class="comment">//１：节点的右子节点为空　或者　右子节点已经被访问过</span></span><br><span class="line">                stk.pop();　<span class="comment">//出栈访问该节点</span></span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;p-&gt;val&lt;&lt;<span class="string">" "</span>;　</span><br><span class="line">                pre=p;　　<span class="comment">//表示该节点访问过了</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;<span class="comment">//２：右子节点不为空，则先处理右子节点</span></span><br><span class="line">                p=p-&gt;right;</span><br><span class="line">                flag=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">while</span>(!stk.empty()); <span class="comment">//有分号，使用dowhile是因为</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该算法具有一个<strong>特性</strong>：就是当访问某个结点时，栈中所保存的元素正好是这个结点的所有祖先。</p>
+<p>那么知道了这个特性，我们就很容易解决下面如下问题：</p>
+<p>(1).当给定一个叶子结点，要求输出该叶子结点的所有祖先</p>
+<p>(2).输出根结点到所有叶子结点的路径</p>
+<p>(3).如果二叉树结点的值是数值，那么求每条路径上值之和，也可以利用二叉树后序遍历的非递归算法这个特性</p>
+<p><a href="https://www.cnblogs.com/greedyco/p/7187408.html" target="_blank" rel="noopener">参考</a></p>
+<h2 id="二叉树深度"><a href="#二叉树深度" class="headerlink" title="二叉树深度"></a>二叉树深度</h2><p>问题：给定一个二叉树，求它的深度。</p>
+<p><strong>分解：</strong>树的深度可以分解为（左子树深度＋１）（右子树深度＋１）取其中的最大值。</p>
+<p><strong>解决：</strong>递归条件是空树返回０。</p>
+<p><strong>合并：</strong>可以采用参数返回，也可以采用ｖｏｉｄ。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">DepthOfTree</span><span class="params">(TreeNode *t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> left_depth=DepthOfTree(t-&gt;left)+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> right_depth=DepthOfTree(t-&gt;right)+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> max(left_depth,right_depth);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="判断平衡树（AVL）"><a href="#判断平衡树（AVL）" class="headerlink" title="判断平衡树（ＡＶＬ）"></a>判断平衡树（ＡＶＬ）</h2><p>平衡二叉树(AVL)：</p>
+<p>它或者是一颗空树；</p>
+<p>或者具有以下性质的二叉树：</p>
+<ol>
+<li>每个节点的左子树和右子树的深度之差(平衡因子)的绝对值不超过1。</li>
+<li>它的左子树和右子树都是一颗平衡二叉树。</li>
+</ol>
+<p><strong>分解：</strong>根节点判断，左子节点判断，右子节点判断。这三种情况是问题一样但规模不同</p>
+<p><strong>解决：</strong>空树返回真，利用求二叉树深度函数进行判断</p>
+<p><strong>合并：</strong>根据ＡＶＬ树的定义，只有在左右子树深度不超过１ ＆＆ 左子树符合要求 ＆＆ 右子树也符合要求，才能返回真。</p>
+<p><strong>最直接的求法：</strong>遍历二叉树，求每一个节点的左右子树深度做判断。时间复杂度是$O(N^2)$，太费时间。</p>
+<p>（1）如果二叉树为空，返回真 </p>
+<p>（2）如果二叉树不为空，如果左子树和右子树都是AVL树并且左子树和右子树高度相差不大于1，返回真，其他返回假</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsAVL</span><span class="params">(TreeNode *t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)<span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//空树返回真</span></span><br><span class="line">    <span class="keyword">int</span> ld=DepthOfTree(t-&gt;left);</span><br><span class="line">    <span class="keyword">int</span> rd=DepthOfTree(t-&gt;right);</span><br><span class="line">    <span class="keyword">if</span>(ld-rd&gt;=<span class="number">-1</span> &amp;&amp; ld-rd&lt;=<span class="number">1</span> &amp;&amp; IsAVL(t-&gt;left) &amp;&amp; IsAVL(t-&gt;right))<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>$O(N)$求法</strong>：遍历二叉树是不可避免的，所以应该在求深度的地方优化。采用后序遍历的方式（左右根），在左右子节点的时候顺便求深度即可优化算法，也就是自底向上遍历。</p>
+<p><strong>关键在于如何在遍历左右子节点时求深度：</strong>递归的时候需要保存左右子树的深度信息，<del>需要额外的两个变量</del>。在合并的时候只需要一个变量来保存深度就可以了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsAVL</span><span class="params">(TreeNode *t,<span class="keyword">int</span> &amp;deep)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)&#123;</span><br><span class="line">        deep=<span class="number">0</span>;　<span class="comment">//deep用于保存处理节点的深度。</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    bool left=IsAVL(t-&gt;left,deep);//先访问处理左子树</span></span><br><span class="line"><span class="comment">    int ld=deep; //处理完左子树后的深度，也就是左子树的深度</span></span><br><span class="line"><span class="comment">    bool right=IsAVL(t-&gt;right,deep);//再访问处理右子树</span></span><br><span class="line"><span class="comment">    int rd=deep;　//右子树的深度</span></span><br><span class="line"><span class="comment">    //处理根节点：左子树是AVL ＆＆ 右子树也是AVL ＆＆ 根节点的左右深度不超过１</span></span><br><span class="line"><span class="comment">    if(left &amp;&amp; right &amp;&amp; ld-rd&gt;=-1 &amp;&amp; ld-rd&lt;=1)&#123;</span></span><br><span class="line"><span class="comment">        deep=(ld&gt;rd)?ld+1:rd+1;  //返回上层时深度是左右子树深度的最大值要加１</span></span><br><span class="line"><span class="comment">        return true;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    return false;   </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">int</span> ld,rd;</span><br><span class="line">    <span class="comment">//左右子树做了递归，不用再考虑，只需考虑根节点处理</span></span><br><span class="line">    <span class="keyword">if</span>(IsAVL(tree-&gt;left,ld)&amp;&amp;IsAVL(tree-&gt;right,rd)&amp;&amp;ld-rd&gt;=<span class="number">-1</span>&amp;&amp;ld-rd&lt;=<span class="number">1</span>)&#123;</span><br><span class="line">        deep=(ld&gt;rd)?ld+<span class="number">1</span>:rd+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BST转双向链表"><a href="#BST转双向链表" class="headerlink" title="BST转双向链表"></a>BST转双向链表</h2><p>BST(Binary Sort Tree)，二叉排序树，又名二叉查找树，又名二叉搜索树</p>
+<p>它或者是一棵空树；</p>
+<p>或者是具有下列性质的<a href="http://baike.baidu.com/view/88806.htm" target="_blank" rel="noopener">二叉树</a>： </p>
+<ol>
+<li>若左子树不空，则左子树上所有结点的值均小于它的根结点的值； </li>
+<li>若右子树不空，则右子树上所有结点的值均大于它的根结点的值；</li>
+<li>左、右子树也分别为二叉排序树；</li>
+</ol>
+<p><strong>题目：</strong>输入一棵二叉搜索树，将其转换为一个排序的双向链表。要求：不能创建任何新的结点，只能调整树中结点指针的指向。</p>
+<p>分析：</p>
+<ol>
+<li>输入：二叉树根节点指针ＴｒｅｅＮｏｄｅ　*ｒｏｏｔ</li>
+<li>输出：双向链表，应该指明头节点，即返回一个指针指向双向链表的第一个元素，需要一个指针变量ｈｅａｄ指向头节点，该指针不能随着函数变化，所以应该设置全局指针。</li>
+<li>递归截止：返回ｎｕｌｌｐｔｒ</li>
+<li>将左右子节点链接起来需要知道前一个节点信息，所以需要一个变量ｐｒｅ保存前一个节点。要保证每次调用ｐｒｅ的指向不变。可以使用<strong>指针的指针</strong>或者<strong>全局变量</strong></li>
+<li>ｐｒｅ指向前一个节点，ｃｕｒ指向当前处理的根节点，进行连接即可。</li>
+<li>右子树进行同样的操作。也就是递归处理右子树（当前根节点变成了右子节点）</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">TreeNode *head=<span class="literal">nullptr</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BSTtoList</span><span class="params">(TreeNode *t)</span></span>&#123;</span><br><span class="line">    TreeNode *pre=<span class="literal">nullptr</span>;</span><br><span class="line">    transform(t,&amp;pre);<span class="comment">//取pre指针的地址，指针的指针</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">transform</span><span class="params">(TreeNode *t,TreeNode **pre)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t==<span class="literal">nullptr</span>)<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    </span><br><span class="line">    transform(t-&gt;left,pre);<span class="comment">//先处理左子树</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    TreeNode *cur=t; <span class="comment">//cur指向当前访问的节点(根节点)</span></span><br><span class="line">    <span class="keyword">if</span>(*pre==<span class="literal">nullptr</span>)&#123;<span class="comment">//在最左节点处</span></span><br><span class="line">        *pre=cur;</span><br><span class="line">        head=cur;<span class="comment">//指向第一个指针</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;<span class="comment">//连接两个节点</span></span><br><span class="line">        cur-&gt;left=*pre;</span><br><span class="line">        (*pre)-&gt;right=cur;</span><br><span class="line">        *pre=cur;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    transform(t-&gt;right,pre);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</the>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/[object Object]/divideconquer.html">分治</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 ITS-Ma 的个人博客">ITS-Ma</a></p>
+        <p><span>发布时间:</span>2018年08月20日 - 10时08分</p>
+        <p><span>最后更新:</span>2018年08月22日 - 16时51分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/[object Object]/divideconquer.html" title="分治">https://itsma.github.io/[object Object]/divideconquer.html</a>
+            <span class="copy-path" data-clipboard-text="原文: https://itsma.github.io/[object Object]/divideconquer.html　　作者: ITS-Ma" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a  href="/[object Object]/sort.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">排序总结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分解"><span class="toc-number">1.</span> <span class="toc-text">分解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决"><span class="toc-number">2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并"><span class="toc-number">3.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最大子数组"><span class="toc-number">4.</span> <span class="toc-text">最大子数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树遍历"><span class="toc-number">5.</span> <span class="toc-text">二叉树遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#前序（根左右）"><span class="toc-number">5.1.</span> <span class="toc-text">前序（根左右）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中序（左根右）"><span class="toc-number">5.2.</span> <span class="toc-text">中序（左根右）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#非递归"><span class="toc-number">5.2.1.</span> <span class="toc-text">非递归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后序（左右根）"><span class="toc-number">5.3.</span> <span class="toc-text">后序（左右根）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#非递归-1"><span class="toc-number">5.3.1.</span> <span class="toc-text">非递归</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树深度"><span class="toc-number">6.</span> <span class="toc-text">二叉树深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断平衡树（AVL）"><span class="toc-number">7.</span> <span class="toc-text">判断平衡树（ＡＶＬ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BST转双向链表"><span class="toc-number">8.</span> <span class="toc-text">BST转双向链表</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/[object Object]/sort.html" title="下一篇: 排序总结">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/[object Object]/divideconquer.html">分治</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/sort.html">排序总结</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/heapsort.html">堆排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/mergesort.html">归并排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/quicksort.html">快速排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/sortalgorithm.html">简单排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/webtools.html">Google浏览器插件</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/googleGuide.html">Google编程规范</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/catkinerror.html">catkin_make ERROR</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 ITS-Ma
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -4,20 +4,25 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
   
-   
-    <meta name="keywords" content="algorithm" />
   
   
   
-  <title>Tag: algorithm | ITS&#39;Ma Blog</title>
+  <title>排序总结 | ITS&#39;Ma Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ITS&#39;Ma Blog">
-<meta property="og:url" content="https://itsma.github.io/tags/algorithm/index.html">
+  <meta name="description" content="从时间复杂度，空间复杂度，稳定性和初始状态等方面分析排序算法">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序总结">
+<meta property="og:url" content="https://itsma.github.io/[object Object]/sort.html">
 <meta property="og:site_name" content="ITS&#39;Ma Blog">
+<meta property="og:description" content="从时间复杂度，空间复杂度，稳定性和初始状态等方面分析排序算法">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://itsma.github.io/图片/sort.png">
+<meta property="og:updated_time" content="2018-08-19T09:16:48.788Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ITS&#39;Ma Blog">
+<meta name="twitter:title" content="排序总结">
+<meta name="twitter:description" content="从时间复杂度，空间复杂度，稳定性和初始状态等方面分析排序算法">
+<meta name="twitter:image" content="https://itsma.github.io/图片/sort.png">
   
     <link rel="alternative" href="/atom.xml" title="ITS&#39;Ma Blog" type="application/atom+xml">
   
@@ -42,9 +47,9 @@
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
+          isPost: true,
           isArchive: false,
-          isTag: true,
+          isTag: false,
           isCategory: false,
           open_in_new: false
       }
@@ -274,245 +279,210 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-排序总结" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a  href="/[object Object]/sort.html" class="article-date">
+      <time datetime="2018-08-19T08:09:53.000Z" itemprop="datePublished">2018-08-19</time>
+</a>
+
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      排序总结
+    </h1>
+  
+
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a  href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/[object Object]/divideconquer.html" class="archive-article-date">
-      <time datetime="2018-08-20T02:08:50.000Z" itemprop="datePublished">08-20</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/[object Object]/divideconquer.html">分治</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
+    <div class="article-entry" itemprop="articleBody">
+      
           
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>从时间复杂度，空间复杂度，稳定性和初始状态等方面分析排序算法<br><a id="more"></a></excerpt></p>
+<p><the rest="" of="" contents="" |="" 余下全文=""><br><img src="../../../../图片/sort.png" alt="排序算法"></the></p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>简单排序在已经排好序的情况下时间复杂度是最好的，在逆序的情况下是最坏的。</p>
+<p>快速排序在基准元素是最小或最大值时是最坏的。</p>
+<p>归并排序与堆排序是最稳定的。</p>
+<p>##　空间复杂度</p>
+<p>只有<strong>归并排序和快速排序</strong>需要额外的空间。</p>
+<p>因为采用递归的方法，递归的次数是$O(logN)$。每一次递归都需要空间。</p>
+<p>快速排序在对序列的操作过程中只需花费常数级的空间。空间复杂度$O(1)$。 但需要注意快速排序每次递归都会返回一个基准元素的下标位置，必须使用栈。递归栈上需要花费最少$logN$最多$N$的空间。</p>
+<p>归并排序每次递归需要用到一个辅助表，长度与待排序的表相等，虽然递归次数是$logN$，但每次递归都会释放掉所占的辅助空间，所以下次递归的栈空间和辅助空间与这部分释放的空间就不相关了，因而空间复杂度还是$O(N)$。</p>
+<p>归并排序需要额外的$O(N)$的空间。</p>
+<p>快速排序需要额外的$O(NlogN)$的空间。</p>
+<h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h2><p>稳定排序：插入，冒泡，归并</p>
+<p>不稳定排序：选择，快速，堆</p>
+<p><strong>归并排序：</strong>在1个或2个元素时，1个元素不会交换，2个元素如果大小相等也没有人故意交换，这不会破坏稳定性。那么，在短的有序序列合并的过程中，稳定是是否受到破坏？没有，合并过程中我们可以保证如果两个当前元素相等时，我们把处在前面的序列的元素保存在结果序列的前面，这样就保证了稳定性。所以，<strong>归并排序也是稳定的排序算法。</strong></p>
+<p><strong>堆排序：</strong>在叶子节点与父节点这3个元素之间的选择最大或最小不会破坏稳定性。但在叶子节点之上的节点交换会破坏稳定性。有可能第n / 2个父节点交换把后面一个元素交换过去了，而第n / 2 - 1个父节点把后面一个相同的元素没有交换，那么这2个相同的元素之间的稳定性就被破坏了。所以，堆排序不是稳定的排序算法。</p>
+<p><strong>快速排序：</strong>在基准元素与有相同元素之间交换时会破坏稳定性。（５，３，９，３，８，１０）中基准元素５与第二个３交换。</p>
+<p><strong>选择排序：</strong>序列5 8 5 2 9，我们知道第一遍选择第1个元素5会和2交换，那么原序列中2个5的相对前后顺序就被破坏了，所以选择排序不是一个稳定的排序算法。</p>
+<h2 id="初始状态"><a href="#初始状态" class="headerlink" title="初始状态"></a>初始状态</h2><p>算法复杂度与数组的初试状态无关：</p>
+<p>一堆（<strong>堆排序</strong>）乌龟（<strong>归并排序</strong>）选（<strong>选择排序</strong>）基（<strong>基数排序</strong>）友</p>
+<p>元素总<strong>比较次数</strong>与初始状态无关的有：<strong>选择排序</strong>、<strong>基数排序</strong>。</p>
+<p>元素总<strong>移动次数</strong>与初始状态无关的有：<strong>归并排序</strong>、<strong>基数排序</strong></p>
+
+      
     </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/[object Object]/sort.html">排序总结</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 ITS-Ma 的个人博客">ITS-Ma</a></p>
+        <p><span>发布时间:</span>2018年08月19日 - 16时09分</p>
+        <p><span>最后更新:</span>2018年08月19日 - 17时16分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/[object Object]/sort.html" title="排序总结">https://itsma.github.io/[object Object]/sort.html</a>
+            <span class="copy-path" data-clipboard-text="原文: https://itsma.github.io/[object Object]/sort.html　　作者: ITS-Ma" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a  href="/[object Object]/divideconquer.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          分治
+        
+      </div>
+    </a>
+  
+  
+    <a  href="/[object Object]/heapsort.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">堆排序</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
 </article>
-  
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#时间复杂度"><span class="toc-number">1.</span> <span class="toc-text">时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#稳定性"><span class="toc-number">2.</span> <span class="toc-text">稳定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始状态"><span class="toc-number">3.</span> <span class="toc-text">初始状态</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/[object Object]/sort.html" class="archive-article-date">
-      <time datetime="2018-08-19T08:09:53.000Z" itemprop="datePublished">08-19</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/[object Object]/sort.html">排序总结</a>
-    </h1>
-  
 
 
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/[object Object]/divideconquer.html" title="上一篇: 分治">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/[object Object]/heapsort.html" title="下一篇: 堆排序">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/[object Object]/divideconquer.html">分治</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/sort.html">排序总结</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/heapsort.html">堆排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/mergesort.html">归并排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/quicksort.html">快速排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/sortalgorithm.html">简单排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/webtools.html">Google浏览器插件</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/googleGuide.html">Google编程规范</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/catkinerror.html">catkin_make ERROR</a></li></ul>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/[object Object]/heapsort.html" class="archive-article-date">
-      <time datetime="2018-08-17T01:56:52.000Z" itemprop="datePublished">08-17</time>
-</a>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/[object Object]/heapsort.html">堆排序</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
-    </div>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
 
 
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/[object Object]/mergesort.html" class="archive-article-date">
-      <time datetime="2018-08-16T09:56:24.000Z" itemprop="datePublished">08-16</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/[object Object]/mergesort.html">归并排序</a>
-    </h1>
-  
 
 
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/[object Object]/quicksort.html" class="archive-article-date">
-      <time datetime="2018-08-14T11:43:42.000Z" itemprop="datePublished">08-14</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/[object Object]/quicksort.html">快速排序</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a  href="/[object Object]/sortalgorithm.html" class="archive-article-date">
-      <time datetime="2018-08-13T11:01:51.000Z" itemprop="datePublished">08-13</time>
-</a>
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a  class="archive-article-title" href="/[object Object]/sortalgorithm.html">简单排序</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-
+    <script>
+        
+    </script>
 
 </div>
       <footer id="footer">
@@ -604,18 +574,6 @@ ga('send', 'pageview');
         };
     })
 </script>
-
-    <button class="hide-labels">TAG 开关</button>
-    
-<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                $(".article-info").toggle(200);
-            });
-        });
-    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>

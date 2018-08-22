@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://itsma.github.io/%5Bobject%20Object%5D/divideconquer.html</loc>
+    
+    <lastmod>2018-08-22T08:51:11.964Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://itsma.github.io/%5Bobject%20Object%5D/sort.html</loc>
+    
+    <lastmod>2018-08-19T09:16:48.788Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://itsma.github.io/%5Bobject%20Object%5D/heapsort.html</loc>
     
     <lastmod>2018-08-17T09:21:51.376Z</lastmod>
