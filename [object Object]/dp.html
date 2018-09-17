@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
+  
+  <title>动态规划 | ITS&#39;Ma Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="分治法是将问题分解为两个互不相交的子问题。如二叉树的左右子树遍历等； 动态规划应用于子问题存在重叠的情况，如最大子数组和，最长公共子序列等；动态规划就是在递归中记录了子问题的解，逐步重构最优解。 动态规划一般由两种方法来实现，一种为自顶向下的备忘录方式，用递归实现，一种为自底向上的方式，用迭代实现。">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划">
+<meta property="og:url" content="https://itsma.github.io/[object Object]/dp.html">
+<meta property="og:site_name" content="ITS&#39;Ma Blog">
+<meta property="og:description" content="分治法是将问题分解为两个互不相交的子问题。如二叉树的左右子树遍历等； 动态规划应用于子问题存在重叠的情况，如最大子数组和，最长公共子序列等；动态规划就是在递归中记录了子问题的解，逐步重构最优解。 动态规划一般由两种方法来实现，一种为自顶向下的备忘录方式，用递归实现，一种为自底向上的方式，用迭代实现。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-27T02:42:04.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划">
+<meta name="twitter:description" content="分治法是将问题分解为两个互不相交的子问题。如二叉树的左右子树遍历等； 动态规划应用于子问题存在重叠的情况，如最大子数组和，最长公共子序列等；动态规划就是在递归中记录了子问题的解，逐步重构最优解。 动态规划一般由两种方法来实现，一种为自顶向下的备忘录方式，用递归实现，一种为自底向上的方式，用迭代实现。">
+  
+    <link rel="alternative" href="/atom.xml" title="ITS&#39;Ma Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">ITS-Ma</a></h1>
+        </hgroup>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">所有文章</a></li>
+                        
+                            <li><a  href="/categories/Base">基础学习</a></li>
+                        
+                            <li><a  href="/categories/ROS/">ROS学习</a></li>
+                        
+                            <li><a  href="/categories/algorithm">算法学习</a></li>
+                        
+                            <li><a  href="/categories/DevTools">开发工具</a></li>
+                        
+                            <li><a  href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="/xxxxx" title="github">github</a>
+                            
+                                <a class="fl weibo"  target="_blank" href="/xxxxxxxx" title="weibo">weibo</a>
+                            
+                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Base/" style="font-size: 10px;">Base</a> <a href="/tags/Devtools/" style="font-size: 10px;">Devtools</a> <a href="/tags/ROS/" style="font-size: 10px;">ROS</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.csdn.net/baidu_21483933">csdn</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://segmentfault.com/blog/maocg_web">segmentfault</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/eb37ef89c746/latest_articles">简书</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">爱动漫,爱游戏,爱编程,爱运动,爱的太多了!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">ITS-Ma</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">ITS-Ma</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/categories/Base">基础学习</a></li>
+                
+                    <li><a href="/categories/ROS/">ROS学习</a></li>
+                
+                    <li><a href="/categories/algorithm">算法学习</a></li>
+                
+                    <li><a href="/categories/DevTools">开发工具</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="/xxxxx" title="github">github</a>
+                    
+                        <a class="weibo" target="_blank" href="/xxxxxxxx" title="weibo">weibo</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-动态规划" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/[object Object]/dp.html" class="article-date">
+      <time datetime="2018-08-22T08:57:22.000Z" itemprop="datePublished">2018-08-22</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      动态规划
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Algorithm/">算法学习</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <excerpt in="" index="" |="" 首页摘要="">
+
+<p>分治法是将问题分解为两个互不相交的子问题。如二叉树的左右子树遍历等；</p>
+<p>动态规划应用于子问题存在重叠的情况，如最大子数组和，最长公共子序列等；动态规划就是在递归中记录了子问题的解，逐步重构最优解。</p>
+<p>动态规划一般由两种方法来实现，一种为自顶向下的备忘录方式，用递归实现，一种为自底向上的方式，用迭代实现。<br><a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="暴力递归"><a href="#暴力递归" class="headerlink" title="暴力递归"></a>暴力递归</h2><ol>
+<li>把问题转化为规模缩小了的同类问题的子问题 </li>
+<li>有明确的不需要继续进行递归的条件(base case)</li>
+<li>有当得到了子问题的结果之后的决策过程</li>
+<li>不记录每一个子问题的解</li>
+</ol>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><ol>
+<li>从暴力递归中来 </li>
+<li>将每一个子问题的解记录下来，不断重构最优解</li>
+<li>最终得到问题的解</li>
+<li>把暴力递归的过程，抽象成了状态表达 </li>
+</ol>
+<p>本质上状态空间的状态转移。</p>
+<p>所谓状态转移是指每个阶段的最优状态（对应于子问题的解）可以从之前的某一个或几个阶段的状态中得到，即下一个子阶段的求解是建立在上一个子阶段的解的基础上，进行进一步的求解，这个性质叫做<strong>最优子结构</strong>。而不管之前这个状态是如何得到的，这被称之为<strong>无后效性</strong>。</p>
+<p><strong>关键在于：</strong>如何求解递推式！</p>
+<ol>
+<li>如何设置状态</li>
+<li>如何递推，从上一个状态如何转化到下一个状态</li>
+<li>最终达到最优解</li>
+</ol>
+<h2 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h2><h3 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h3><p><strong><em>题目：</em></strong></p>
+<p>有N件物品和一个空间为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。</p>
+<p>例如：有编号分别为a,b,c,d,e的五件物品，它们的重量分别是2,2,6,5,4，它们的价值分别是6,3,5,4,6，每件物品数量只有一个，现在给你个承重为10的背包，如何让背包里装入的物品具有最大的价值总和。</p>
+<p><strong><em>特点：</em></strong>每种物品仅有一件，可以选择放或不放</p>
+<p><strong><em>分析：</em></strong></p>
+<p><del>只放一件物品价值最大</del>，<del>选取在承重范围内的最大值放进背包</del></p>
+<p><del>只放两件物品价值最大</del>，<del>两种情况</del>：１，<del>在放一件物品最大后</del>，<del>在剩余承重下再放一件</del>；２，<del>重新选择两件物品</del>。这两种情况谁价值大选谁。</p>
+<p><strong><em>自顶向下分析：</em></strong></p>
+<p><strong>两个变量：物品数i和空间j，</strong></p>
+<p><strong>一个所求：背包最大价值。</strong></p>
+<p><strong>数组$W[i][j]$表示有i个物品可以选择放入空间为j的背包中的最大价值，注意是选择放入不是全部放入背包</strong></p>
+<p><strong>当ｉ＝Ｎ且ｊ＝Ｖ时就是所求。</strong></p>
+<p>所以，$W[i][j]$可以由子问题$W[i-1][j]$，即有ｉ－１个物品可选择放入空间为ｊ的背包中的最大价值，加上第ｉ个物品构成。有两种情况：</p>
+<p>第一：第ｉ个物品放入背包，$W[i][j]=W[i-1][j-c_i]+w_i$</p>
+<p>第二：第ｉ个物品不放入背包，$W[i][j]=W[i-1][j]$</p>
+<p>取两者最大值就是i个物品可以选择放入空间为j的背包中的最大价值$W[i][j]$</p>
+<p><strong><em>自底向上求解：</em></strong></p>
+<p>由ｉ＝０，ｊ＝０开始逐步求解$W[i][j]$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> *value,<span class="keyword">int</span> *cost,<span class="keyword">int</span> n,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; W(n,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(v,<span class="number">0</span>)); <span class="comment">//n行v列二维数组，初始化为０</span></span><br><span class="line">    <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123; <span class="comment">//第ｉ个物品</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;v;++j)&#123; <span class="comment">//空间</span></span><br><span class="line">            <span class="keyword">if</span>(i==<span class="number">0</span> &amp;&amp; j&gt;=cost[i])W[i][j]=value[j];<span class="comment">//初始化第一排数据，即只有一个物品时</span></span><br><span class="line">            <span class="keyword">if</span>(j&lt;cost[i])&#123;  <span class="comment">//书包空间装不下第ｉ个物品时</span></span><br><span class="line">                W[i][j]=W[i<span class="number">-1</span>][j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                W[i][j]=max(W[i<span class="number">-1</span>][j],W[i<span class="number">-1</span>][j-cost[i]]+value[i]);        </span><br><span class="line">            &#125;          </span><br><span class="line">            max=(W[i][j]&gt;max)W[i][j]:max;    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>时间复杂度：</em></strong>$O(NV)$</p>
+<p><strong><em>空间复杂度：</em></strong>$O(NV)$</p>
+<p><strong><em>空间优化：</em></strong>只需要一个一维数组就可以保存需要的数据。空间复杂度可以优化到<em>$O(V)$</em></p>
+<p>上面的方法是用一个二维数组保存子问题的解（ｉ－１个物品放入空间为ｊ的背包的最大价值）</p>
+<p>在做递推的时候只用了ｉ－１行的数据，所以可以使用一个一位数组只保存ｉ－１行的数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">knapack</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; value,<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cost,<span class="keyword">int</span> n,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; W(v+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123; <span class="comment">//n个物品，依次增加种类</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=v;j&gt;=<span class="number">1</span>;--j)&#123;　<span class="comment">//逆序，</span></span><br><span class="line">            <span class="keyword">if</span>(j&gt;=cost[i])&#123;<span class="comment">//空间够放第ｉ个物品时，才放入</span></span><br><span class="line">                W[j]=max(W[j-cost[i]]+value[i],W[j<span class="number">-1</span>]);</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> W[v];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>空间ｖ的遍历一定是<strong>逆序</strong>。这样才能保证$W[j-cost[i]]$不会在ｊ的一次循环内被更新，保证了物品只能使用一次。比如，</p>
+<h3 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h3><p><strong><em>题目：</em></strong></p>
+<p>有N种物品和一个空间为V的背包，<strong>每种物品都有无限件可用</strong>。第i种物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使这些物品的费用总和不超过背包空间，且价值总和最大。</p>
+<p><strong><em>分析：</em></strong></p>
+<p>N种物品无限使用，也就相当于少了一个限制，求空间为Ｖ的背包最大价值是多少。</p>
+<p>$W[V]$表示空间为Ｖ的书包的最大价值。</p>
+<p>$W(V)=argmax(W(V-c_i)+w_i)$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">knapack_comlete</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; value,<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cost,<span class="keyword">int</span> n,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; W(v+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=v;++i)&#123; <span class="comment">//空间为ｉ时的最大价值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;++j)&#123;　<span class="comment">//逐个物品进行尝试，这保证可以使用无限多次</span></span><br><span class="line">            <span class="keyword">if</span>(i&lt;cost[j])<span class="keyword">continue</span>;</span><br><span class="line">            W[i]=max(W[i-cost[j]]+value[j],W[i<span class="number">-1</span>]);     </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> W[v];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h3><p><strong><em>题目：</em></strong></p>
+<p>有N种物品和一个空间为V的背包。第i种物品最多有n[i]件可用，每件费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使这些物品的费用总和不超过背包空间，且价值总和最大。</p>
+<p><strong><em>分析：</em></strong></p>
+<p>对于第ｉ个物品，<br>$$<br>W[i][j]=max(W[i-1][j],W[i-1][j-k<em>c_i]+k</em>c_i)<br>$$<br>其中，$k$的取值范围是$(1,n[i])$．</p>
+<p>时间复杂度是$O(V*\sum(n[i]))$</p>
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><p><strong><em>题目：</em></strong></p>
+<p>给出两个字符串，求出这样的一个最长的公共子序列的<strong>长度</strong>：子序列中的每个字符都能在两个原串中找到，而且每个字符的先后顺序和原串中的先后顺序一致。</p>
+<p><strong><em>分析：</em></strong></p>
+<p>公共子序列 ： 如果序列C既是序列A的子序列，同时也是序列B的子序列，则称它为序列A和序列B的公共子序列。<strong>空序列是任何两个序列的公共子序列。</strong></p>
+<ol>
+<li>确定动态规划问题，</li>
+<li>寻找ＤＰ数组，一维ｏｒ二维。题目包含两个变量，字符串１和字符串２。</li>
+<li>确定递推式。关于字符串的变量一般就是长度。两个字符串的长度变化对最长子序列的结果都有影响。确定$DP[i][j]$表示字符串１中长度为ｉ时与字符串２中长度为ｊ的最长公共子序列的<strong>长度</strong>。</li>
+<li>$DP[i][j]$可以由三部分（$DP[i-1][j]，DP[i][j-1]，DP[i-1][j-1]$）递推得到，所以，有</li>
+</ol>
+<p>$$<br>DP[i][j]=max(DP[i-1][j],DP[i][j-1]),if(str1[i]!=str2[j])<br>$$</p>
+<p>$$<br>DP[i][j]=DP[i-1][j-1]+1,if(str1[i]=str2[j])<br>$$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MaxCommonSeq</span><span class="params">(<span class="built_in">string</span> str1,<span class="built_in">string</span> str2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len1=str1.size();</span><br><span class="line">    <span class="keyword">int</span> len2=str2.size();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; DP(len1+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(len2+<span class="number">1</span>,<span class="number">0</span>));<span class="comment">//+1是为了更好的处理单个字符的情况</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=len1;++i)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=len2;++j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(str1[i<span class="number">-1</span>]==str2[j<span class="number">-1</span>])&#123;</span><br><span class="line">                DP[i][j]=DP[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                DP[i][j]=max(DP[i<span class="number">-1</span>][j],DP[i][j<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DP[len1][len2];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</the></excerpt>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/[object Object]/dp.html">动态规划</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 ITS-Ma 的个人博客">ITS-Ma</a></p>
+        <p><span>发布时间:</span>2018年08月22日 - 16时57分</p>
+        <p><span>最后更新:</span>2018年08月27日 - 10时42分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/[object Object]/dp.html" title="动态规划">https://itsma.github.io/[object Object]/dp.html</a>
+            <span class="copy-path" data-clipboard-text="原文: https://itsma.github.io/[object Object]/dp.html　　作者: ITS-Ma" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a  href="/[object Object]/dfsandbfs.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          DFS和BFS
+        
+      </div>
+    </a>
+  
+  
+    <a  href="/[object Object]/divideconquer.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分治</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#暴力递归"><span class="toc-number">1.</span> <span class="toc-text">暴力递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划"><span class="toc-number">2.</span> <span class="toc-text">动态规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#背包问题"><span class="toc-number">3.</span> <span class="toc-text">背包问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01背包"><span class="toc-number">3.1.</span> <span class="toc-text">01背包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完全背包"><span class="toc-number">3.2.</span> <span class="toc-text">完全背包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多重背包"><span class="toc-number">3.3.</span> <span class="toc-text">多重背包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最长公共子序列"><span class="toc-number">4.</span> <span class="toc-text">最长公共子序列</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/[object Object]/dfsandbfs.html" title="上一篇: DFS和BFS">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/[object Object]/divideconquer.html" title="下一篇: 分治">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/[object Object]/dfsandbfs.html">DFS和BFS</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/dp.html">动态规划</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/divideconquer.html">分治</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/sort.html">排序总结</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/heapsort.html">堆排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/mergesort.html">归并排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/quicksort.html">快速排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/sortalgorithm.html">简单排序</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/webtools.html">Google浏览器插件</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/googleGuide.html">Google编程规范</a></li><li class="post-list-item"><a class="post-list-link" href="/[object Object]/catkinerror.html">catkin_make ERROR</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 ITS-Ma
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

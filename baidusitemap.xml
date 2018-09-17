@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>https://itsma.github.io/%5Bobject%20Object%5D/dfsandbfs.html</loc>
+    <lastmod>2018-09-05T06:07:25.235Z</lastmod>
+    <data>
+        <display>
+        <title>DFS和BFS</title>
+        <pubTime>2018-09-03T01:29:32.000Z</pubTime>
+        
+        <tag>algorithm</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法学习" url="https://itsma.github.io/categories/Algorithm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://itsma.github.io/%5Bobject%20Object%5D/dp.html</loc>
+    <lastmod>2018-08-27T02:42:04.754Z</lastmod>
+    <data>
+        <display>
+        <title>动态规划</title>
+        <pubTime>2018-08-22T08:57:22.000Z</pubTime>
+        
+        <tag>algorithm</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法学习" url="https://itsma.github.io/categories/Algorithm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://itsma.github.io/%5Bobject%20Object%5D/divideconquer.html</loc>
     <lastmod>2018-08-22T08:51:11.964Z</lastmod>
     <data>
